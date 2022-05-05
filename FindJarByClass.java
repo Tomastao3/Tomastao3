@@ -15,8 +15,7 @@ import java.util.regex.*;
 public class FindJarByClass {
 
   public static String className;
-
-  static String dir = "C:\\test";  //file directory
+  static String dir = "C:\\test"; 
 
   public static HashSet<String> jarFiles = new HashSet();
   public static HashSet<String> checkSet = new HashSet();
