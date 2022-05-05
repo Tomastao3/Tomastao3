@@ -16,7 +16,7 @@ public class FindJarByClass {
 
   public static String className;
 
-  static String dir = "/data/sfsf/workspace/main/tomcat-sfs";  //tomcat directory
+  static String dir = "C:\\test";  //tomcat directory
 
   public static HashSet<String> jarFiles = new HashSet();
   public static HashSet<String> checkSet = new HashSet();
