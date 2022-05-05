@@ -86,27 +86,6 @@ public class FindJarByClass {
     }//while
   }
 
-  public static void fuzzyFindJarByClass(String filename) throws IOException{
-    ZipFile zip = new ZipFile(filename);
-    Enumeration entries = zip.entries();
-    while (entries.hasMoreElements()) {
-      ZipEntry entry = (ZipEntry) entries.nextElement();
-      for (String className : classSet) {
-        String thisClassName = getClassName(entry);
-        if(className.contains(".*") &&!thisClassName.contains("$") && thisClassName.contains(".class")
-          && thisClassName.startsWith(className.replace(".*",""))
-          && (thisClassName.split("\\.").length == (className + ".class").split("\\.").length)) {
-            Matcher m1 = Pattern.compile("[^/]+\\.jar").matcher(filename);
-            if (m1.find()) {
-              String jarName = m1.group(0);
-              jarFiles.add(jarName + ":" + className + ":" + thisClassName);
-              checkSet.add(className);
-            }
-        }
-      }
-    }
-  }
-
   protected static void searchDir(String dir, boolean recurse) {
     try {
       File d = new File(dir);
