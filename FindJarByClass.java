@@ -107,10 +107,6 @@ public class FindJarByClass {
       e.printStackTrace();
     }
   }
-  
-  public HashSet<String> getJars() {
-    return this.jarFiles;
-  }
 
   protected static String getClassName(ZipEntry entry) {
     StringBuffer className = new StringBuffer(entry.getName().replace("/", "."));
