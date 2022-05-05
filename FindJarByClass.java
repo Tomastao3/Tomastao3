@@ -16,7 +16,7 @@ public class FindJarByClass {
 
   public static String className;
 
-  static String dir = "C:\\test";  //tomcat directory
+  static String dir = "C:\\test";  //file directory
 
   public static HashSet<String> jarFiles = new HashSet();
   public static HashSet<String> checkSet = new HashSet();
