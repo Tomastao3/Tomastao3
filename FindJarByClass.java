@@ -78,7 +78,6 @@ public class FindJarByClass {
             jarFiles.add(jarName + " :" + className + " :" + thisClassName);
             checkSet.add(className);
             jarSet.add(jarName + " :" + className);
-
           }
         }
       }//for
