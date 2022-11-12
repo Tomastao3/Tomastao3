@@ -1,0 +1,73 @@
+package com.util;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+
+
+public class JDBCUtil {
+	
+    static DruidDataSource dataSource;
+	
+	static {
+		 Properties prop = new Properties();
+	        try {
+	            prop.load(JDBCUtil.class.getClassLoader().getResourceAsStream("druid.properties"));
+	            dataSource = (DruidDataSource)DruidDataSourceFactory.createDataSource(prop);
+	            //dataSource.addFilters("stat,log4j,wall");
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	}
+
+
+	public static Connection getConn() {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+
+
+
+	public static void close(Connection conn,PreparedStatement prep) {
+		try {
+			if(prep != null) {
+				prep.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void close(Connection conn,PreparedStatement prep,ResultSet rs) {
+		try {
+			if(rs != null) {
+				rs.close();
+			}
+			close(conn,prep);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getConn());
+	}
+	
+}
