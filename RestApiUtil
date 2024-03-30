@@ -1,0 +1,42 @@
+package com.util;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.Duration;
+
+public class RestApiUtil {
+
+    public static String get(String url){
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(url,String.class);
+        return response;
+    }
+
+    public static String getWithHead(String url){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        return response.getBody();
+    }
+
+    public static String post(String url,String requestBody,String param){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(requestBody,headers);
+        String response = restTemplate.patchForObject(url,entity, String.class,param);
+        return response;
+    }
+
+    public static RestTemplate getRestTemplate(){
+        RestTemplate restTemplate = new RestTemplateBuilder()
+                .setConnectTimeout(Duration.ofSeconds(300)).setReadTimeout(Duration.ofSeconds(300)).build();
+
+        return restTemplate;
+    }
+}
